@@ -1,0 +1,29 @@
+FEED:
+docker build -t ulhaspai/udacity-c3-restapi-feed .
+docker run --rm --publish 6003:6003 -v $HOME/.aws:/root/.aws --env UDAGRAM_USERNAME=$UDAGRAM_USERNAME --env UDAGRAM_PASSWORD=$UDAGRAM_PASSWORD --env UDAGRAM_DATABASE=$UDAGRAM_DATABASE --env UDAGRAM_DATABASE_HOST=$UDAGRAM_DATABASE_HOST --env AWS_PROFILE=$AWS_PROFILE --env UDAGRAM_S3_BUCKET=$UDAGRAM_S3_BUCKET --env UDAGRAM_URL=$UDAGRAM_URL --env JWT_SECRET=$JWT_SECRET --env PORT=$PORT --name feed ulhaspai/udacity-c3-restapi-feed
+
+USER:
+docker build -t ulhaspai/udacity-c3-restapi-user .
+docker run --rm --publish 6003:6003 -v $HOME/.aws:/root/.aws --env UDAGRAM_USERNAME=$UDAGRAM_USERNAME --env UDAGRAM_PASSWORD=$UDAGRAM_PASSWORD --env UDAGRAM_DATABASE=$UDAGRAM_DATABASE --env UDAGRAM_DATABASE_HOST=$UDAGRAM_DATABASE_HOST --env AWS_PROFILE=$AWS_PROFILE --env UDAGRAM_S3_BUCKET=$UDAGRAM_S3_BUCKET --env UDAGRAM_URL=$UDAGRAM_URL --env JWT_SECRET=$JWT_SECRET --env PORT=$PORT --name user ulhaspai/udacity-c3-restapi-user
+
+FRONTEND:
+docker build -t ulhaspai/udacity-c3-frontend .
+docker run --rm --publish 4200:4200 --name frontend ulhaspai/udacity-c3-frontend
+
+REVERSE PROXY:
+docker build -t ulhaspai/reverseproxy .
+
+DEPLOYMENT:
+docker-compose -f docker-compose-build.yaml build --parallel
+docker
+
+
+
+UDAGRAM_USERNAME: $UDAGRAM_USERNAME
+UDAGRAM_PASSWORD: $UDAGRAM_PASSWORD
+UDAGRAM_DATABASE: $UDAGRAM_DATABASE
+UDAGRAM_DATABASE_HOST: $UDAGRAM_DATABASE_HOST
+AWS_PROFILE: $AWS_PROFILE
+UDAGRAM_S3_BUCKET: $UDAGRAM_S3_BUCKET
+JWT_SECRET: $JWT_SECRET
+UDAGRAM_URL: "http://localhost:8100"
