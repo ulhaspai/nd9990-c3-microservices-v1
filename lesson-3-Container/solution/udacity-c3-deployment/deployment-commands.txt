@@ -1,3 +1,7 @@
+==================================================
+# DOCKER
+==================================================
+
 FEED:
 docker build -t ulhaspai/udacity-c3-restapi-feed .
 docker run --rm --publish 6003:6003 -v $HOME/.aws:/root/.aws --env UDAGRAM_USERNAME=$UDAGRAM_USERNAME --env UDAGRAM_PASSWORD=$UDAGRAM_PASSWORD --env UDAGRAM_DATABASE=$UDAGRAM_DATABASE --env UDAGRAM_DATABASE_HOST=$UDAGRAM_DATABASE_HOST --env AWS_PROFILE=$AWS_PROFILE --env UDAGRAM_S3_BUCKET=$UDAGRAM_S3_BUCKET --env UDAGRAM_URL=$UDAGRAM_URL --env JWT_SECRET=$JWT_SECRET --env PORT=$PORT --name feed ulhaspai/udacity-c3-restapi-feed
@@ -15,9 +19,11 @@ docker build -t ulhaspai/reverseproxy .
 
 DEPLOYMENT:
 docker-compose -f docker-compose-build.yaml build --parallel
-docker
+docker-compose up
 
-
+==================================================
+# ENVIRONMENT VARIABLES
+==================================================
 
 UDAGRAM_USERNAME: $UDAGRAM_USERNAME
 UDAGRAM_PASSWORD: $UDAGRAM_PASSWORD
