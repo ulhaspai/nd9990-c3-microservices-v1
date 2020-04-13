@@ -1,29 +1,32 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: reverseproxy
   name: reverseproxy
+  labels:
+    app: reverseproxy
 spec:
+  selector:
+    matchLabels:
+      app: reverseproxy
   replicas: 2
   template:
     metadata:
       labels:
-        service: reverseproxy
+        app: reverseproxy
     spec:
       containers:
-      - image: scheele/reverseproxy
+      - image: ulhaspai/reverseproxy
         name: reverseproxy
-        imagePullPolicy: Always          
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "64Mi"
             cpu: "250m"
           limits:
             memory: "1024Mi"
-            cpu: "500m"       
+            cpu: "500m"
         ports:
-        - containerPort: 8080
+        - containerPort: 6003
       restartPolicy: Always
 
 
